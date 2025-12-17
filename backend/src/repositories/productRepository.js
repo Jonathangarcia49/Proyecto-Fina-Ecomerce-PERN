@@ -2,22 +2,25 @@ import { Product } from "../models/Product.js";
 import { Category } from "../models/Category.js";
 
 export const productRepository = {
-  findAll: () =>
-    Product.findAll({
-      include: [{ model: Category, as: "category" }]
-    }),
 
-  findById: (id) =>
-    Product.findByPk(id, {
-      include: [{ model: Category, as: "category" }]
-    }),
+  findAll: async () => {
+    return await Product.findAll({
+      include: [Category]
+    });
+  },
 
-  create: (data) => Product.create(data),
+  findById: async (id) => {
+    return await Product.findByPk(id, {
+      include: [Category]
+    });
+  },
+
+  create: async (data) => Product.create(data),
 
   update: async (id, data) => {
     const product = await Product.findByPk(id);
     if (!product) return null;
-    return product.update(data);
+    return await product.update(data);
   },
 
   remove: async (id) => {

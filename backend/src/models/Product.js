@@ -9,30 +9,22 @@ export const Product = sequelize.define("Product", {
     primaryKey: true
   },
   name: {
-    type: DataTypes.STRING(150),
+    type: DataTypes.STRING,
     allowNull: false
   },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
   price: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.FLOAT,
     allowNull: false
   },
   stock: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
-  imageUrl: {
-    type: DataTypes.STRING,
-    allowNull: true
+    allowNull: false
   }
 }, {
   tableName: "products",
   timestamps: true
 });
 
-Category.hasMany(Product, { foreignKey: "categoryId", as: "products" });
-Product.belongsTo(Category, { foreignKey: "categoryId", as: "category" });
+// relaciones
+Category.hasMany(Product, { foreignKey: "categoryId" });
+Product.belongsTo(Category, { foreignKey: "categoryId" });
